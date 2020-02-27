@@ -10,6 +10,9 @@
  */
 public class Trader {
     
+    // Attributes
+    // ID is not on the UML diagram but is needed to assign each trader a unique ID so the table appears correctly
+    private int ID;
     private String companyName;
     private String location;
     private String services;
@@ -17,7 +20,9 @@ public class Trader {
     private double dailyRate;
     private String description;
 
-    public Trader(String companyName, String location, String services, int numEmployees, double dailyRate, String description) {
+    // Constructor
+    public Trader(int ID, String companyName, String location, String services, int numEmployees, double dailyRate, String description) {
+        this.ID = ID;
         this.companyName = companyName;
         this.location = location;
         this.services = services;
@@ -25,6 +30,11 @@ public class Trader {
         this.dailyRate = dailyRate;
         this.description = description;
     }
+    
+    // Getters
+    public int getID() {
+        return ID;
+    }    
 
     public String getCompanyName() {
         return companyName;
@@ -50,6 +60,7 @@ public class Trader {
         return description;
     }
     
+    // toString method
     public String toString() {
         StringBuilder str = new StringBuilder(1000);
         str.append("-----------------------------------------------------------");
@@ -62,5 +73,4 @@ public class Trader {
         str.append("\n-----------------------------------------------------------");
         return str.toString();
     }
-    
 }
