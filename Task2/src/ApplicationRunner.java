@@ -27,6 +27,7 @@ public class ApplicationRunner {
         Event FloorExerciseFemale = new Event("Floor Exercise - Female", "female", 1, new CommitteeMember[]{member1, null});
 
         
+        
     }
 }
 

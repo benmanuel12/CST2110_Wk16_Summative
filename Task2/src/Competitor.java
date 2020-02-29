@@ -3,6 +3,15 @@ public class Competitor{
     private String name;
     private Attempt[] attempts;
     private String gender;
+    private Event[] competingIn;
+
+    public Event[] getCompetingIn() {
+        return this.competingIn;
+    }
+
+    public void setCompetingIn(Event[] competingIn) {
+        this.competingIn = competingIn;
+    }
 
     public String getGender() {
         return this.gender;
