@@ -1,6 +1,15 @@
 public class Attempt {
     private int score;
     private Event forEvent;
+    private Routine routine;
+
+    public Routine getRoutine() {
+        return this.routine;
+    }
+
+    public void setRoutine(Routine routine) {
+        this.routine = routine;
+    }
 
     public Event getForEvent() {
         return this.forEvent;

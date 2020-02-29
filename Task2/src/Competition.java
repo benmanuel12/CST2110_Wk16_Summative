@@ -8,4 +8,5 @@ public class Competition {
     public void setEvents(Event[] events) {
         this.events = events;
     }
+    
 }

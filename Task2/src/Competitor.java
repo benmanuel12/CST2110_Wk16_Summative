@@ -4,6 +4,14 @@ public class Competitor{
     private Attempt[] attempts;
     private String gender;
 
+    public String getGender() {
+        return this.gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     public int getCompetitionNumber() {
         return this.competitionNumber;
     }

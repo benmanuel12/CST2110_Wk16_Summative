@@ -1,15 +1,6 @@
 public class Routine{
     private String description;
     private int difficultyRating;
-    private Attempt forAttempt;
-
-    public Attempt getForAttempt() {
-        return this.forAttempt;
-    }
-
-    public void setForAttempt(Attempt forAttempt) {
-        this.forAttempt = forAttempt;
-    }
 
     public String getDescription() {
         return this.description;
