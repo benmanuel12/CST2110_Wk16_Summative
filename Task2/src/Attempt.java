@@ -27,9 +27,10 @@ public class Attempt {
         this.score = score;
     }
 
-    public Attempt(int score, Event forEvent){
+    public Attempt(int score, Event forEvent, Routine routine){
         this.score = score;
         this.forEvent = forEvent;
+        this.routine = routine;
     }
 
 }

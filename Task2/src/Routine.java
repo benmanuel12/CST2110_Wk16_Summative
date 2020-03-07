@@ -18,10 +18,9 @@ public class Routine{
         this.difficultyRating = difficultyRating;
     }
 
-    public Routine(String description, int difficultyRating, Attempt forAttempt){
+    public Routine(String description, int difficultyRating){
         this.description = description;
         this.difficultyRating = difficultyRating;
-        this.forAttempt = forAttempt;
     }
 
 }

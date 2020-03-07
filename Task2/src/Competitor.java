@@ -1,17 +1,10 @@
-public class Competitor{
+import java.util.Arrays;
+
+public class Competitor {
     private int competitionNumber;
     private String name;
     private Attempt[] attempts;
     private String gender;
-    private Event[] competingIn;
-
-    public Event[] getCompetingIn() {
-        return this.competingIn;
-    }
-
-    public void setCompetingIn(Event[] competingIn) {
-        this.competingIn = competingIn;
-    }
 
     public String getGender() {
         return this.gender;
@@ -46,9 +39,9 @@ public class Competitor{
     }
 
     public void addAttempt(Attempt attempt){
-        Attempt[] newAttempts = Attempt[attempts.length + 1];
+        Attempt[] newAttempts = new Attempt[attempts.length + 1];
+        newAttempts = Arrays.copyOf(attempts, attempts.length + 1);
         newAttempts[attempts.length] = attempt;
-
         attempts = newAttempts;
     }
 
