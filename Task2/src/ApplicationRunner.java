@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class ApplicationRunner {
 
-        Competition theOneAndOnly = new Competition();
+        static Competition theOneAndOnly = new Competition();
 
         static CommitteeMember member0 = new CommitteeMember("Ajani Goldmane");
         static CommitteeMember member1 = new CommitteeMember("Tacenda Verlasen");
@@ -23,6 +23,8 @@ public class ApplicationRunner {
 
         static Event[] eventList = { FloorExerciseMale, PommelHorse, StillRings, VaultMale, ParallelBars, HighBar,
                         VaultFemale, UnevenBars, BalanceBeam, FloorExerciseFemale };
+
+        //theOneAndOnly.setEvents(eventList);
 
         static Competitor C1 = new Competitor(1, "Montell Griffin", "male");
         static Competitor C2 = new Competitor(2, "Ubaid Gross", "male");
