@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.beans.binding.Bindings;
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -40,7 +42,7 @@ public class ApplicationRunner extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        
+
         // ------------------------ Main Pane ----------------------------------
         primaryStage.setTitle("SmartPad App");
 
@@ -52,15 +54,14 @@ public class ApplicationRunner extends Application {
         lightingPane.setPadding(new Insets(10, 10, 10, 10));
         heatingPane.setPadding(new Insets(10, 10, 10, 10));
         CCTVPane.setPadding(new Insets(10, 10, 10, 10));
-        
+
         mainPane.setMargin(lightingPane, new Insets(0, 5, 5, 0));
         mainPane.setMargin(heatingPane, new Insets(5, 5, 0, 0));
         mainPane.setMargin(CCTVPane, new Insets(0, 5, 0, 5));
-        
+
         lightingPane.setBorder(new Border(new BorderStroke(Color.GREY, BorderStrokeStyle.SOLID, new CornerRadii(5), BorderWidths.DEFAULT)));
         heatingPane.setBorder(new Border(new BorderStroke(Color.GREY, BorderStrokeStyle.SOLID, new CornerRadii(5), BorderWidths.DEFAULT)));
         CCTVPane.setBorder(new Border(new BorderStroke(Color.GREY, BorderStrokeStyle.SOLID, new CornerRadii(5), BorderWidths.DEFAULT)));
-        
 
         mainPane.add(lightingPane, 0, 0);
         mainPane.add(heatingPane, 0, 1);
@@ -68,7 +69,6 @@ public class ApplicationRunner extends Application {
         mainPane.setRowSpan(CCTVPane, 2);
 
         // ------------------------ Lighting Pane ------------------------------
-        
         Label lightingTitle = new Label();
         lightingTitle.setText("Lighting");
         lightingTitle.setFont(Font.font("Droid Sans", FontWeight.BOLD, 12));
@@ -112,7 +112,7 @@ public class ApplicationRunner extends Application {
         lightingPane.add(bedroom2Slider, 1, 7);
 
         Group circleGroup = new Group();
-        
+
         Circle hallCircle = new Circle(7.5, 0, 10, javafx.scene.paint.Color.ORANGE);
         Circle kitchenCircle = new Circle(7.5, 25, 10, javafx.scene.paint.Color.ORANGE);
         Circle livingRoomCircle = new Circle(7.5, 50, 10, javafx.scene.paint.Color.ORANGE);
@@ -135,7 +135,6 @@ public class ApplicationRunner extends Application {
         lightingPane.getRowConstraints().add(new RowConstraints(25));
 
         //----------------------- Heating Pane ---------------------------------
-        
         Label heatingTitle = new Label();
         heatingTitle.setText("Central Heating");
         heatingTitle.setFont(Font.font("Droid Sans", FontWeight.BOLD, 12));
@@ -171,7 +170,7 @@ public class ApplicationRunner extends Application {
         heatingText.setFont(Font.font("Verdana", 20));
         heatingText.setPrefHeight(50);
         heatingText.setPrefWidth(100);
-        
+
         heatingPane.add(heatingText, 2, 2);
         heatingPane.setRowSpan(heatingText, 2);
 
@@ -183,68 +182,120 @@ public class ApplicationRunner extends Application {
 
         heatingPane.getColumnConstraints().add(new ColumnConstraints(100));
         heatingPane.getColumnConstraints().add(new ColumnConstraints(100));
-        
+
+        heatingText.textProperty().bind(
+                Bindings.format(
+                        "%.1f",
+                        heatingSlider.valueProperty()
+                )
+        );
+
         // --------------------------- CCTV Pane -------------------------------
-        
         Label CCTVTitle = new Label();
-        CCTVTitle.setText("CCTV");
+
+        CCTVTitle.setText(
+                "CCTV");
         CCTVTitle.setFont(Font.font("Droid Sans", FontWeight.BOLD, 12));
-        CCTVPane.add(CCTVTitle, 0, 0);
+        CCTVPane.add(CCTVTitle,
+                0, 0);
         try {
             Image front = new Image(new FileInputStream("images/front.jpg"));
             Image back = new Image(new FileInputStream("images/back.jpg"));
             Image side = new Image(new FileInputStream("images/side.jpg"));
             Image drive = new Image(new FileInputStream("images/drive.jpg"));
-            
+            Image mute = new Image(new FileInputStream("images/mute-screen.gif"));
+
             ImageView frontView = new ImageView(front);
             ImageView backView = new ImageView(back);
             ImageView sideView = new ImageView(side);
             ImageView driveView = new ImageView(drive);
-            
+
             Group frontGroup = new Group(frontView);
             Group backGroup = new Group(backView);
             Group sideGroup = new Group(sideView);
             Group driveGroup = new Group(driveView);
-            
+
             CCTVPane.add(frontGroup, 0, 1);
             CCTVPane.add(backGroup, 1, 1);
             CCTVPane.add(sideGroup, 0, 2);
             CCTVPane.add(driveGroup, 1, 2);
-            
-        } catch (FileNotFoundException ex){
+
+            HBox buttonBar = new HBox();
+
+            ToggleGroup buttonGroup = new ToggleGroup();
+
+            ToggleButton frontButton = new ToggleButton("Front");
+            ToggleButton backButton = new ToggleButton("Back");
+            ToggleButton sideButton = new ToggleButton("Side");
+            ToggleButton driveButton = new ToggleButton("Drive");
+
+            HBox.setMargin(frontButton, new Insets(30, 10, 10, 10));
+            HBox.setMargin(backButton, new Insets(30, 10, 10, 10));
+            HBox.setMargin(sideButton, new Insets(30, 10, 10, 10));
+            HBox.setMargin(driveButton, new Insets(30, 10, 10, 10));
+
+            buttonBar.setAlignment(Pos.CENTER);
+
+            frontButton.setToggleGroup(buttonGroup);
+            backButton.setToggleGroup(buttonGroup);
+            sideButton.setToggleGroup(buttonGroup);
+            driveButton.setToggleGroup(buttonGroup);
+
+            frontButton.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent event) {
+                    if (frontButton.isSelected()) {
+                        frontView.setImage(mute);
+                    } else {
+                        frontView.setImage(front);
+                    }
+                }
+            });
+
+            backButton.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent event) {
+                    if (backButton.isSelected()) {
+                        backView.setImage(mute);
+                    } else {
+                        backView.setImage(back);
+                    }
+                }
+            });
+
+            sideButton.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent event) {
+                    if (sideButton.isSelected()) {
+                        sideView.setImage(mute);
+                    } else {
+                        sideView.setImage(side);
+                    }
+                }
+            });
+
+            driveButton.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent event) {
+                    if (driveButton.isSelected()) {
+                        driveView.setImage(mute);
+                    } else {
+                        driveView.setImage(drive);
+                    }
+                }
+            });
+
+            buttonBar.getChildren().addAll(frontButton, backButton, sideButton, driveButton);
+
+            CCTVPane.add(buttonBar, 0, 3);
+            CCTVPane.setColumnSpan(buttonBar, 2);
+
+        } catch (FileNotFoundException ex) {
             System.out.println("File not found");
         }
-        
-        HBox buttonBar = new HBox();
-        
-        ToggleGroup buttonGroup = new ToggleGroup();
-        
-        ToggleButton frontButton = new ToggleButton("Front");
-        ToggleButton backButton = new ToggleButton("Back");
-        ToggleButton sideButton = new ToggleButton("Side");
-        ToggleButton driveButton = new ToggleButton("Drive");
-        
-        HBox.setMargin(frontButton, new Insets(30, 10, 10, 10));
-        HBox.setMargin(backButton, new Insets(30, 10, 10, 10));
-        HBox.setMargin(sideButton, new Insets(30, 10, 10, 10));
-        HBox.setMargin(driveButton, new Insets(30, 10, 10, 10));
-        
-        buttonBar.setAlignment(Pos.CENTER);
-        
-        frontButton.setToggleGroup(buttonGroup);
-        backButton.setToggleGroup(buttonGroup);
-        sideButton.setToggleGroup(buttonGroup);
-        driveButton.setToggleGroup(buttonGroup);
-        
-        buttonBar.getChildren().addAll(frontButton, backButton, sideButton, driveButton);
-        
-        CCTVPane.add(buttonBar, 0, 3);
-        CCTVPane.setColumnSpan(buttonBar, 2);
-        
 
         StackPane root = new StackPane();
-        root.getChildren().add(mainPane);
-        primaryStage.setScene(new Scene(root, 750, 450));
+
+        root.getChildren()
+                .add(mainPane);
+        primaryStage.setScene(
+                new Scene(root, 750, 450));
         primaryStage.show();
     }
 
