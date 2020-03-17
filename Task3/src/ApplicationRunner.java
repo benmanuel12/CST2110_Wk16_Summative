@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -33,12 +35,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.scene.paint.Color;
 
 public class ApplicationRunner extends Application {
+    
+    //private IntegerProperty hallOpacity = new SimpleIntegerProperty(0);
 
     @Override
     public void start(Stage primaryStage) {
@@ -97,6 +103,7 @@ public class ApplicationRunner extends Application {
         lightingPane.add(bedroom2, 0, 7);
 
         Slider hallSlider = new Slider(0, 1, 0.5);
+        hallSlider.setBlockIncrement(0.001);
         lightingPane.add(hallSlider, 1, 1);
         Slider kitchenSlider = new Slider(0, 1, 0.5);
         lightingPane.add(kitchenSlider, 1, 2);
@@ -133,7 +140,56 @@ public class ApplicationRunner extends Application {
         lightingPane.getRowConstraints().add(new RowConstraints(25));
         lightingPane.getRowConstraints().add(new RowConstraints(25));
         lightingPane.getRowConstraints().add(new RowConstraints(25));
-
+        
+        hallSlider.valueProperty().addListener(
+        (observable, oldvalue, newvalue) ->
+        {
+            double i = newvalue.doubleValue();
+            hallCircle.setFill(Color.hsb(74.0, 0.19, i));
+        });
+        
+        kitchenSlider.valueProperty().addListener(
+        (observable, oldvalue, newvalue) ->
+        {
+            double i = newvalue.doubleValue();
+            kitchenCircle.setFill(Color.hsb(74.0, 0.19, i));
+        });
+        
+        livingRoomSlider.valueProperty().addListener(
+        (observable, oldvalue, newvalue) ->
+        {
+            double i = newvalue.doubleValue();
+            livingRoomCircle.setFill(Color.hsb(74.0, 0.19, i));
+        });
+        
+        diningRoomSlider.valueProperty().addListener(
+        (observable, oldvalue, newvalue) ->
+        {
+            double i = newvalue.doubleValue();
+            diningRoomCircle.setFill(Color.hsb(74.0, 0.19, i));
+        });
+        
+        landingSlider.valueProperty().addListener(
+        (observable, oldvalue, newvalue) ->
+        {
+            double i = newvalue.doubleValue();
+            landingCircle.setFill(Color.hsb(74.0, 0.19, i));
+        });
+        
+        bedroom1Slider.valueProperty().addListener(
+        (observable, oldvalue, newvalue) ->
+        {
+            double i = newvalue.doubleValue();
+            bedroom1Circle.setFill(Color.hsb(74.0, 0.19, i));
+        });
+        
+        bedroom2Slider.valueProperty().addListener(
+        (observable, oldvalue, newvalue) ->
+        {
+            double i = newvalue.doubleValue();
+            bedroom2Circle.setFill(Color.hsb(74.0, 0.19, i));
+        });
+        
         //----------------------- Heating Pane ---------------------------------
         Label heatingTitle = new Label();
         heatingTitle.setText("Central Heating");
