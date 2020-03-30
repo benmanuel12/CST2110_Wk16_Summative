@@ -1,13 +1,8 @@
-
-import java.awt.Rectangle;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -15,11 +10,10 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
@@ -34,8 +28,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -43,8 +35,6 @@ import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 
 public class ApplicationRunner extends Application {
-    
-    //private IntegerProperty hallOpacity = new SimpleIntegerProperty(0);
 
     @Override
     public void start(Stage primaryStage) {
@@ -221,7 +211,7 @@ public class ApplicationRunner extends Application {
         heatingPane.add(heatingSlider, 1, 1);
         heatingPane.setRowSpan(heatingSlider, 4);
 
-        TextArea heatingText = new TextArea();
+        TextField heatingText = new TextField();
         heatingText.setText("20.0");
         heatingText.setFont(Font.font("Verdana", 20));
         heatingText.setPrefHeight(50);
@@ -237,7 +227,7 @@ public class ApplicationRunner extends Application {
         heatingPane.getRowConstraints().add(new RowConstraints(35));
 
         heatingPane.getColumnConstraints().add(new ColumnConstraints(100));
-        heatingPane.getColumnConstraints().add(new ColumnConstraints(100));
+        heatingPane.getColumnConstraints().add(new ColumnConstraints(50));
 
         heatingText.textProperty().bind(
                 Bindings.format(

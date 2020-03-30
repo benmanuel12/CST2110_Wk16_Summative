@@ -26,13 +26,14 @@ public class ApplicationRunner {
             String line;
             int ID = 1;
             while ((line = br.readLine()) != null) {
-// Splits line of text by : character
+                
+                // Splits line of text by : character
                 String[] array = line.split(":");
-
-// Creates new Trader Object using the contents of the file and an ID attribute to identify the entries
+                
+                // Creates new Trader Object using the contents of the file and an ID attribute to identify the entries
                 Trader newTrader = new Trader(ID, array[0], array[1], array[2], Integer.parseInt(array[3]), Double.parseDouble(array[4]), array[5]);
-
-// Inserts new object into ArrayList
+                
+                // Inserts new object into ArrayList
                 traders.add(newTrader);
                 ID++;
             }
@@ -46,6 +47,7 @@ public class ApplicationRunner {
     static void menu() {
         // Creates scanner, takes input from user and runs appropriate action based on input followed by menu again
         Scanner input = new Scanner(System.in);
+        System.out.println("");
         System.out.println("List traders.......1");
         System.out.println("Select trader .....2");
         System.out.println("Search locations...3");
@@ -74,14 +76,15 @@ public class ApplicationRunner {
 
         }
     }
-    
+
     // Formats the data to appear as a table
     static String rightpad(String text, int length) {
         return String.format("%-" + length + "." + length + "s", text);
     }
-    
+
     // Loops through ArrayList and prints out content
     static void listTraders() {
+        System.out.println("");
         System.out.println("ID " + rightpad("Company name", 20) + rightpad("Location", 20) + rightpad("Services Offered", 50));
         System.out.println("---------------------------------------------------------------------------------------------------------------------------");
         for (Trader trader : traders) {
@@ -100,6 +103,7 @@ public class ApplicationRunner {
         Scanner input = new Scanner(System.in);
         System.out.print("Enter trader ID from list [1 - 25] :>");
         int choice = input.nextInt();
+        System.out.println("");
         System.out.println(traders.get(choice - 1).toString());
     }
 
@@ -114,7 +118,8 @@ public class ApplicationRunner {
                 results.add(trader);
             }
         }
-
+        
+        System.out.println("");
         System.out.println("ID " + rightpad("Company name", 20) + rightpad("Location", 20) + rightpad("Services Offered", 50));
         System.out.println("---------------------------------------------------------------------------------------------------------------------------");
         for (Trader trader : results) {
@@ -139,7 +144,8 @@ public class ApplicationRunner {
                 results.add(trader);
             }
         }
-
+        
+        System.out.println("");
         System.out.println("ID " + rightpad("Company name", 20) + rightpad("Location", 20) + rightpad("Services Offered", 50));
         System.out.println("---------------------------------------------------------------------------------------------------------------------------");
         for (Trader trader : results) {
